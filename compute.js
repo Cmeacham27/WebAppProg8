@@ -15,7 +15,7 @@ const server = http.createServer((req, res) => {
 
   res.statusCode = 200
   res.setHeader('Content-Type', 'text/plain')
-  
+  res.setHeader('Access-Control-Allow-Origin', '*')
   // Use string interpolation (backticks) to match the required output format
   res.end(`f(${x}, ${y}) is ${result}`)
 })

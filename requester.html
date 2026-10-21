@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Server Fetch Request</title>
+</head>
+<body>
+    <h1>Cael Meacham uses a fetch request</h1>
+    
+    <div>
+        <label for="numX">Value X:</label>
+        <input type="number" id="numX" value="10">
+    </div>
+    <br>
+    <div>
+        <label for="numY">Value Y:</label>
+        <input type="number" id="numY" value="11">
+    </div>
+    <br>
+
+    <button id="invokeBtn">Invoke computation on Server</button>
+
+    <h3>Result:</h3>
+    <div id="resultDiv">Awaiting request...</div>
+
+    <script>
+        document.getElementById('invokeBtn').addEventListener('click', () => {
+            const x = document.getElementById('numX').value;
+            const y = document.getElementById('numY').value;
+            const resultDiv = document.getElementById('resultDiv');
+
+            const url = `http://127.0.0.1:3001/?x=${x}&y=${y}`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    resultDiv.textContent = text;
+                })
+                .catch(error => {
+                    resultDiv.textContent = `Error: ${error.message}`;
+                });
+        });
+    </script>
+</body>
+</html>
